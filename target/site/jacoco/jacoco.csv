@@ -1,5 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-mails,default,Mail,103,0,16,0,27,0,14,0,6,0
-mails,default,User,74,0,10,0,16,0,11,0,6,0
-mails,default,StartUI,95,0,8,0,31,0,10,0,6,0
-mails,default,ConsoleHelper,27,0,0,0,10,0,4,0,4,0
+mails,mail,Mail,103,0,16,0,27,0,14,0,6,0
+mails,mail,ConsoleHelper,28,0,0,0,10,0,4,0,4,0
+mails,mail,StubInput,12,0,0,0,4,0,3,0,3,0
+mails,mail,StartUI,106,0,8,0,32,0,10,0,6,0
+mails,mail,User,74,0,10,0,16,0,11,0,6,0

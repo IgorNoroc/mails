@@ -1,3 +1,5 @@
+package mail;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,6 +13,12 @@ public class User {
         this.name = name;
     }
 
+    /**
+     * Добавляет один или несколько электронных адресов
+     * пользователю.
+     *
+     * @param email электронный адрес или адреса.
+     */
     public void addEmails(String... email) {
         emails.addAll(Arrays.asList(email));
     }

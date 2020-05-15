@@ -1,4 +1,6 @@
-ConsoleHelper.class
-Mail.class
-StartUI.class
-User.class
+mail\StartUI.class
+mail\ConsoleHelper.class
+mail\Input.class
+mail\Mail.class
+mail\User.class
+mail\StubInput.class

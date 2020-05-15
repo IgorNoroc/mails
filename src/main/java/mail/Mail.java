@@ -1,3 +1,5 @@
+package mail;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -5,6 +7,11 @@ import java.util.Set;
 public class Mail {
     private Set<User> users = new HashSet<>();
 
+    /**
+     * Добавляем пользователя.
+     *
+     * @param user пользователь.
+     */
     public void addUser(User user) {
         boolean flag = false;
         for (User current : users) {
@@ -18,6 +25,13 @@ public class Mail {
         }
     }
 
+    /**
+     * Проверка на уникальность электронных адресов.
+     *
+     * @param first  текущий пользователь.
+     * @param second проверяемый пользователь
+     * @return содержит или нет дубликаты проверяемый пользователь.
+     */
     private static boolean containsEmail(User first, User second) {
         boolean rsl = false;
         Set<String> emails = first.getEmails();
@@ -30,6 +44,11 @@ public class Mail {
         return rsl;
     }
 
+    /**
+     * Список пользователей.
+     *
+     * @return список.
+     */
     public Set<User> getUsers() {
         return users;
     }
