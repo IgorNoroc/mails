@@ -25,7 +25,7 @@ public class StartUITest {
         user2.addEmails("333.ru", "444.ru");
         User user3 = new User("User3");
         user3.addEmails("555.ru");
-        Set<User> expected = Set.of(
+        List<User> expected = List.of(
                user1, user2, user3
         );
         assertThat(expected, is(startUI.getMail().getUsers()));
@@ -42,7 +42,7 @@ public class StartUITest {
         startUI.init(input);
         User user1 = new User("User1");
         user1.addEmails("111.ru", "222.ru", "333.ru");
-        Set<User> expected = Set.of(user1);
+        List<User> expected = List.of(user1);
         assertThat(expected, is(startUI.getMail().getUsers()));
     }
 }

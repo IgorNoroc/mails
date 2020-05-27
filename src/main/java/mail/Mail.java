@@ -1,47 +1,46 @@
 package mail;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Mail {
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
+    private Map<String, Integer> store = new HashMap<>();
+    private int point = 0;
 
     /**
      * Добавляем пользователя.
+     * Все электронные адреса сохраняются в хранилище "store",
+     * при этом сохнаняя индекс пользоватебя в списке пользователей.
+     * При добавление нового пользователя, проверяется есть ли такой
+     * электронный адрес в хранилище.
+     * Если есть совпадение, все адреса текущего пользователя
+     * перезаписываются в список пользователя, где было совпадение.
      *
      * @param user пользователь.
      */
     public void addUser(User user) {
         boolean flag = false;
-        for (User current : users) {
-            if (containsEmail(current, user)) {
-                current.getEmails().addAll(user.getEmails());
+        int tempIndex = -1;
+        for (String email : user.getEmails()) {
+            if (!store.containsKey(email)) {
+                store.put(email, point);
+            } else {
+                tempIndex = store.get(email);
                 flag = true;
             }
         }
         if (!flag) {
             users.add(user);
-        }
-    }
-
-    /**
-     * Проверка на уникальность электронных адресов.
-     *
-     * @param first  текущий пользователь.
-     * @param second проверяемый пользователь
-     * @return содержит или нет дубликаты проверяемый пользователь.
-     */
-    private static boolean containsEmail(User first, User second) {
-        boolean rsl = false;
-        Set<String> emails = first.getEmails();
-        for (String email : emails) {
-            if (second.getEmails().contains(email)) {
-                rsl = true;
-                break;
+            point++;
+        } else {
+            users.get(tempIndex).getEmails()
+                    .addAll(user.getEmails());
+            for (Map.Entry<String, Integer> pair : store.entrySet()) {
+                if (pair.getValue() == point) {
+                    store.replace(pair.getKey(), tempIndex);
+                }
             }
         }
-        return rsl;
     }
 
     /**
@@ -49,7 +48,7 @@ public class Mail {
      *
      * @return список.
      */
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
