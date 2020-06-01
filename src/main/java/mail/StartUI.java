@@ -22,7 +22,7 @@ public class StartUI {
                 System.out.println("---------------------------");
             }
             if (insert == 2) {
-                mail.getUsers().forEach(System.out::println);
+                mail.getUsers().forEach((k, v) -> System.out.println(k.getName() + " = " + v));
                 System.out.println("---------------------------");
             }
         }

@@ -3,14 +3,13 @@ package mail;
 import java.util.*;
 
 public class Mail {
-    private List<User> users = new ArrayList<>();
-    private Map<String, Integer> store = new HashMap<>();
-    private int point = 0;
+    private Map<User, Set<String>> users = new HashMap<>();
+    private Map<String, User> store = new HashMap<>();
 
     /**
      * Добавляем пользователя.
      * Все электронные адреса сохраняются в хранилище "store",
-     * при этом сохнаняя индекс пользоватебя в списке пользователей.
+     * при этом сохнаняя ссылку пользоватебя в карте пользователей.
      * При добавление нового пользователя, проверяется есть ли такой
      * электронный адрес в хранилище.
      * Если есть совпадение, все адреса текущего пользователя
@@ -20,26 +19,25 @@ public class Mail {
      */
     public void addUser(User user) {
         boolean flag = false;
-        int tempIndex = -1;
+        User pointer = null;
         for (String email : user.getEmails()) {
-            if (!store.containsKey(email)) {
-                store.put(email, point);
-            } else {
-                tempIndex = store.get(email);
+            if (store.containsKey(email)) {
                 flag = true;
+                pointer = store.get(email);
+                break;
             }
         }
         if (!flag) {
-            users.add(user);
-            point++;
-        } else {
-            users.get(tempIndex).getEmails()
-                    .addAll(user.getEmails());
-            for (Map.Entry<String, Integer> pair : store.entrySet()) {
-                if (pair.getValue() == point) {
-                    store.replace(pair.getKey(), tempIndex);
-                }
+            for (String email : user.getEmails()) {
+                store.put(email, user);
             }
+            users.put(user, user.getEmails());
+        } else {
+            for (String email : user.getEmails()) {
+                store.put(email, pointer);
+            }
+            pointer.getEmails().addAll(user.getEmails());
+            users.replace(pointer, pointer.getEmails());
         }
     }
 
@@ -48,7 +46,7 @@ public class Mail {
      *
      * @return список.
      */
-    public List<User> getUsers() {
+    public Map<User, Set<String>> getUsers() {
         return users;
     }
 
